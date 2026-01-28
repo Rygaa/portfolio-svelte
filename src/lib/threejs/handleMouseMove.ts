@@ -21,7 +21,7 @@ export function handleMouseMove(
 	raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
 	const intersects = raycaster.intersectObject(referencePlane);
 
-	if (intersects.length > 0) {
+	if (intersects.length > 0 && intersects[0]) {
 		const intersectPoint = intersects[0].point;
 		mouseLight.position.set(intersectPoint.x, config.mouseLight.height, intersectPoint.z);
 		mouseLight.target.position.set(intersectPoint.x, 0, intersectPoint.z);

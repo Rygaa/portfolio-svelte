@@ -13,7 +13,7 @@
 	let {
 		onThreeJsReady
 	}: {
-		onThreeJsReady?: () => void;
+		onThreeJsReady?: (() => void) | undefined;
 	} = $props();
 
 	let resumePdf = $derived($language === 'en' ? resumeEnPdf : resumeFrPdf);

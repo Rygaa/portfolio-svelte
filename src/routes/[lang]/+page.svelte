@@ -3,11 +3,10 @@
 	import LoadingScreen from '$lib/components/LoadingScreen.svelte';
 	import { preloadAllResources, type LoadingProgress } from '$lib/utils/resourceLoader';
 	import { disableVerticalScroll, scrollToTop, initializeScroll } from '$lib/utils/scroll';
-	import { settings } from '$lib/settings';
+	import { t } from '$lib/stores/i18n';
 	import { onMount } from 'svelte';
 
 	let showBackToHome = $state(false);
-	let assetsReady = $state(false);
 	let loadingProgress = $state(0);
 	let currentResource = $state('');
 	let isLoadingComplete = $state(false);
@@ -18,7 +17,6 @@
 		currentResource = progress.currentResource || '';
 	}).then(() => {
 		isLoadingComplete = true;
-		assetsReady = true;
 	});
 
 	function scrollToHome() {
@@ -105,9 +103,9 @@
 
 		<footer class="w-full py-8 mt-20 flex flex-col items-center gap-2">
 			<p class="text-sm text-white/60">
-				© {new Date().getFullYear()} Aissa Benfodda. All rights reserved.
+				© {new Date().getFullYear()} Aissa Benfodda. {$t.footer.rights}.
 			</p>
-			<p class="text-xs text-white/40">Portfolio v1.0.0</p>
+			<p class="text-xs text-white/40">Portfolio v{import.meta.env['VITE_VERSION'] || "1.0.0"}</p>
 		</footer>
 	</div>
 {/await}

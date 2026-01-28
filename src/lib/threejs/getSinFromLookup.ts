@@ -4,5 +4,5 @@ export function getSinFromLookup(value: number, sinLookupTable: number[]) {
 	const index = Math.floor(normalized);
 	const nextIndex = (index + 1) % steps;
 	const fraction = normalized - index;
-	return sinLookupTable[index] * (1 - fraction) + sinLookupTable[nextIndex] * fraction;
+	return (sinLookupTable[index] ?? 0) * (1 - fraction) + (sinLookupTable[nextIndex] ?? 0) * fraction;
 }

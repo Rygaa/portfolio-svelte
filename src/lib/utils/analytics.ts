@@ -1,6 +1,6 @@
 interface TrackingEvent {
 	event: 'page_view' | 'language_select' | 'button_click' | 'session_end';
-	language?: string;
+	language?: string | undefined;
 	button?: string;
 	duration?: number;
 	isMaybeABot?: boolean;

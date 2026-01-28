@@ -10,6 +10,7 @@ export default defineConfig({
 					if (id.includes('node_modules/three')) {
 						return 'three';
 					}
+					return undefined;
 				}
 			}
 		}

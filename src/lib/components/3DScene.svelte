@@ -23,7 +23,7 @@
 	let {
 		onThreeJsReady
 	}: {
-		onThreeJsReady?: () => void;
+		onThreeJsReady?: (() => void) | undefined;
 	} = $props();
 
 	let canvas: HTMLCanvasElement;

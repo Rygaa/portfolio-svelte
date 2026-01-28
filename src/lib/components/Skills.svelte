@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { t } from '$lib/stores/i18n';
-	import { trackButtonClick } from '$lib/utils/analytics';
 	import { assetsStore } from '$lib/utils/resourceLoader';
 
 	let programmingSkills = $derived.by(() => [

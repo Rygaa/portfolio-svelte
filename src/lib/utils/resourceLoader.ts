@@ -30,13 +30,13 @@ export interface LoadingProgress {
 	loaded: number;
 	total: number;
 	percentage: number;
-	currentResource?: string;
+	currentResource?: string | undefined;
 }
 
 class ResourceLoader {
 	private loaded = 0;
 	private total = 0;
-	private onProgressCallback?: (progress: LoadingProgress) => void;
+	private onProgressCallback?: ((progress: LoadingProgress) => void) | undefined;
 
 	constructor(onProgress?: (progress: LoadingProgress) => void) {
 		this.onProgressCallback = onProgress;
@@ -103,13 +103,15 @@ export async function preloadAllResources(
 	const assetSources: Array<{ src: string; name: string }> = [];
 
 	// Load all dynamic imports in parallel instead of sequentially
-	const assetPromises = allAssets.map((asset) => asset.loader());
+	const assetPromises = allAssets.map((asset) => asset.loader?.());
 	const loadedSources = await Promise.all(assetPromises);
 
 	loadedSources.forEach((src, index) => {
 		const asset = allAssets[index];
-		assetSources.push({ src: src as string, name: asset.name });
-		loadedAssets[asset.name] = src as string;
+		if (asset) {
+			assetSources.push({ src: src as string, name: asset.name });
+			loadedAssets[asset.name] = src as string;
+		}
 	});
 
 	// Update the store with loaded assets

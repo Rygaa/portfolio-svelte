@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { language, setLanguage, type Language } from '$lib/stores/i18n';
+	import { language, setLanguage } from '$lib/stores/i18n';
 	import { scrollToTop, disableVerticalScroll } from '$lib/utils/scroll';
 	import { trackLanguageSelect, trackButtonClick } from '$lib/utils/analytics';
 	import { globalStore } from '$lib/stores/globalStore.svelte';

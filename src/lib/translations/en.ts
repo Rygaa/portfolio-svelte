@@ -36,7 +36,8 @@ export default {
 		tech: 'Tech',
 		others: 'Others',
 		french: 'French',
-		english: 'English'
+		english: 'English',
+		networking: 'Networking'
 	},
 
 	projects: {
