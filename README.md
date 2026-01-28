@@ -2,6 +2,8 @@
 
 > A modern, multilingual portfolio website featuring an immersive 3D environment powered by Three.js and SvelteKit.
 
+![Portfolio Preview](sample.png)
+
 ## 🎯 Overview
 
 This portfolio showcases a unique blend of creativity and technical expertise through an interactive 3D scene. Built with performance and user experience in mind, it features dynamic cube animations, intelligent lighting effects, and smooth transitions - all while maintaining excellent performance.
