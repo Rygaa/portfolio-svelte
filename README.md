@@ -24,6 +24,7 @@ This portfolio showcases a unique blend of creativity and technical expertise th
 ### 📊 Analytics & Admin
 - **Built-in Analytics** - Track visitor interactions and page views
 - **Admin Dashboard** - Protected admin panel for viewing statistics
+- **Secret Access** - Type `ADMIN` anywhere on the site to access the admin panel
 - **Performance Monitoring** - Optional FPS counter for development
 
 ### ⚡ Performance
@@ -45,11 +46,11 @@ Create a `.env` file in the root directory:
 
 ```env
 VITE_SHOW_FPS=true              # Show FPS counter (development only)
-ADMIN_PASSWORD="your-password"   # Password for admin dashboard
+ADMIN_PASSWORD="your-password"   # Password for admin dashboard (accessed by typing ADMIN)
 VITE_VERSION="1.0.0"            # Application version
 ```
 
-### 3D Scene Settings
+### Scene Settings
 
 Customize the 3D experience in [src/lib/settings.ts](src/lib/settings.ts):
 
