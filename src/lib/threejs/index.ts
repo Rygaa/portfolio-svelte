@@ -1,0 +1,12 @@
+export { createSinLookupTable } from './createSinLookupTable';
+export { getSinFromLookup } from './getSinFromLookup';
+export { initScene } from './initScene';
+export { createFloor } from './createFloor';
+export { createCubes } from './createCubes';
+export { updateCubesHeight } from './updateCubesHeight';
+export { rotateCameraAroundScene } from './rotateCameraAroundScene';
+export { updateFog } from './updateFog';
+export { createLights } from './createLights';
+export { createReferencePlane } from './createReferencePlane';
+export { handleMouseMove } from './handleMouseMove';
+export { handleResize } from './handleResize';

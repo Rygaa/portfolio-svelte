@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&display=swap');
+
+@import 'tailwindcss';
+
+* {
+	font-family: 'Geist Mono', monospace;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: black;
+}
+
+html {
+	background-color: black;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0.3);
+	border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(0, 255, 209, 0.3);
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(0, 255, 209, 0.5);
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(0, 255, 209, 0.3) rgba(0, 0, 0, 0.3);
+}
+
+.bg-grid {
+	--s: 100px;
+	--_g: #0000 90deg, rgba(243, 243, 243, 0.02) 0;
+	background:
+		conic-gradient(from 90deg at 2px 2px, var(--_g)),
+		conic-gradient(from 90deg at 1px 1px, var(--_g));
+	background-size: var(--s) var(--s);
+	z-index: 4;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+.waves {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 1;
+	background-color: #e5e5f7;
+	opacity: 0.1;
+	background-image:
+		repeating-radial-gradient(circle at 0 0, transparent 0, #24a3a752 7.5px),
+		repeating-linear-gradient(#44ebf755, #44f744);
+	pointer-events: none;
+}
+
+.filter {
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)) !important;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 2;
+	pointer-events: none;
+}
+
+.bg {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	z-index: 2;
+	opacity: 1;
+	pointer-events: none;
+}
+
+.blob1,
+.blob2,
+.blob3,
+.blob4 {
+	position: fixed;
+	width: 25rem;
+	height: 25rem;
+	border-radius: 50%;
+	filter: blur(180px);
+	opacity: 0.5;
+	animation: morph 8s ease-in-out infinite;
+	z-index: 3;
+	will-change: transform;
+	transform: translateZ(0);
+	pointer-events: none;
+}
+
+.blob1 {
+	background: linear-gradient(45deg, #ff6b6b, #43e97b, #48dbfb);
+	top: 10%;
+	left: 5%;
+}
+
+.blob2 {
+	background: linear-gradient(45deg, #ff9a9e, #fecfef, #a8edea);
+	animation-delay: -2s;
+	top: 15%;
+	right: 8%;
+}
+
+.blob3 {
+	background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+	animation-delay: -4s;
+	bottom: 20%;
+	left: 10%;
+}
+
+.blob4 {
+	background: linear-gradient(45deg, #4facfe, #00f2fe, #43e97b);
+	animation-delay: -6s;
+	bottom: 15%;
+	right: 5%;
+}
+
+@keyframes morph {
+	0%,
+	100% {
+		transform: scale(1) rotate(0deg);
+	}
+	50% {
+		transform: scale(1.1) rotate(180deg);
+	}
+}
+
+#light-circle {
+	position: fixed;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	background-color: black;
+	filter: blur(50px);
+	pointer-events: none;
+	opacity: 0.2;
+	transition: transform 0.1s ease;
+	z-index: 55;
+	animation: pulse 5s infinite;
+	transform: translate(-50%, -50%);
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		transform: translate(-50%, -50%) scale(1);
+	}
+	50% {
+		transform: translate(-50%, -50%) scale(1.2);
+	}
+}
+
+#main-content {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	z-index: 5;
+}
+
+@media (max-width: 768px) {
+	.blob1,
+	.blob2,
+	.blob3,
+	.blob4 {
+		width: 18rem;
+		height: 18rem;
+		filter: blur(120px);
+	}
+
+	.blob1 {
+		top: 5%;
+		left: -5%;
+	}
+
+	.blob2 {
+		top: 10%;
+		right: -5%;
+	}
+
+	.blob3 {
+		bottom: 25%;
+		left: -5%;
+	}
+
+	.blob4 {
+		bottom: 20%;
+		right: -5%;
+	}
+}
+
+@media (max-width: 480px) {
+	.blob1,
+	.blob2,
+	.blob3,
+	.blob4 {
+		width: 15rem;
+		height: 15rem;
+		filter: blur(100px);
+	}
+
+	.blob1 {
+		top: 3%;
+		left: -8%;
+	}
+
+	.blob2 {
+		top: 8%;
+		right: -8%;
+	}
+
+	.blob3 {
+		bottom: 30%;
+		left: -8%;
+	}
+
+	.blob4 {
+		bottom: 25%;
+		right: -8%;
+	}
+}
+
+@media (max-width: 1350px) {
+	html {
+		font-size: 15px;
+	}
+}
+
+@media (max-width: 1200px) {
+	html {
+		font-size: 14px;
+	}
+}
+
+@media (max-width: 600px) {
+	html {
+		font-size: 13px;
+	}
+}
+
+@media (max-width: 500px) {
+	html {
+		font-size: 12.5px;
+	}
+}
+
+@media (max-width: 400px) {
+	html {
+		font-size: 12px;
+	}
+}
