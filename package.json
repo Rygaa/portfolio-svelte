@@ -3,6 +3,11 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
+	"packageManager": "pnpm@9.15.2",
+	"engines": {
+		"node": "20.x",
+		"pnpm": ">=9.0.0 <10.0.0"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "svelte-check && vite build",
@@ -16,9 +21,11 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^7.0.0",
 		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/adapter-vercel": "^6.3.1",
 		"@sveltejs/kit": "^2.49.1",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
 		"@tailwindcss/postcss": "^4.1.18",
+		"@types/node": "^25.1.0",
 		"autoprefixer": "^10.4.23",
 		"postcss": "^8.5.6",
 		"prettier": "^3.8.1",
@@ -30,7 +37,9 @@
 		"vite": "^7.2.6"
 	},
 	"dependencies": {
+		"@supabase/supabase-js": "^2.93.3",
 		"@types/three": "^0.182.0",
+		"@vercel/blob": "^2.0.1",
 		"dotenv": "^17.2.3",
 		"express": "^5.2.1",
 		"stats.js": "^0.17.0",

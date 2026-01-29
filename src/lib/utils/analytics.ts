@@ -1,3 +1,5 @@
+import { env } from '$env/dynamic/public';
+
 interface TrackingEvent {
 	event: 'page_view' | 'language_select' | 'button_click' | 'session_end';
 	language?: string | undefined;
@@ -9,6 +11,9 @@ interface TrackingEvent {
 let startTime: number;
 let sessionId: string;
 let initialized = false;
+
+// Check if tracking is enabled via environment variable
+const shouldTrack = env['PUBLIC_SHOULD_TRACK'] === 'true';
 
 function generateSessionId(): string {
 	return Date.now().toString(36) + Math.random().toString(36).substring(2);
@@ -86,6 +91,9 @@ function initialize() {
 }
 
 async function track(event: TrackingEvent) {
+	// Skip tracking if disabled
+	if (!shouldTrack) return;
+
 	if (!initialized) {
 		initialized = true;
 	}

@@ -36,6 +36,7 @@
 	}
 
 	function handleViewWork() {
+		trackButtonClick('home_view_work');
 		isSliding = true;
 		globalStore.setFadeEffectActive(false);
 		if (sceneComponent) {

@@ -43,10 +43,10 @@
 
 	async function login() {
 		try {
-			const response = await fetch('/api/admin/login', {
+			const response = await fetch('/api/admin', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ password })
+				body: JSON.stringify({ action: 'login', password })
 			});
 
 			const data = await response.json();
@@ -63,7 +63,18 @@
 
 	async function loadAnalytics() {
 		try {
-			const response = await fetch('/api/admin/analytics');
+			const response = await fetch('/api/admin', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ action: 'analytics', password })
+			});
+			
+			if (!response.ok) {
+				error = 'Unauthorized';
+				authenticated = false;
+				return;
+			}
+			
 			const data = await response.json();
 			analytics = data.events || [];
 		} catch (err) {
