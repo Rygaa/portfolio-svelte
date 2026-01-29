@@ -15,7 +15,8 @@ This portfolio showcases a unique blend of creativity and technical expertise th
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - **Package Manager:** [pnpm](https://pnpm.io/) - Fast, disk space efficient package manager
 - **Build Tool:** [Vite](https://vitejs.dev/) - Next generation frontend tooling
-- **Deployment:** Node.js server with Express
+- **Database:** [Supabase](https://supabase.com/) - PostgreSQL database for analytics
+- **Deployment:** [Vercel](https://vercel.com/) - Serverless deployment platform
 
 ## 🚀 Features
 
@@ -24,10 +25,11 @@ This portfolio showcases a unique blend of creativity and technical expertise th
 - **Language Switcher** - Easy language selection with persistent preferences
 
 ### 📊 Analytics & Admin
-- **Built-in Analytics** - Track visitor interactions and page views
+- **Built-in Analytics** - Track visitor interactions and page views with Supabase
 - **Admin Dashboard** - Protected admin panel for viewing statistics
 - **Secret Access** - Type `ADMIN` anywhere on the site to access the admin panel
 - **Performance Monitoring** - Optional FPS counter for development
+- **Privacy Controls** - Toggle tracking on/off via environment variables
 
 ### ⚡ Performance
 - **Optimized 3D Rendering** - Efficient cube spawning with configurable probability
@@ -42,14 +44,74 @@ This portfolio showcases a unique blend of creativity and technical expertise th
 
 ## ⚙️ Configuration
 
-### Environment Variables
+### Environment Variables (Vercel Only)
 
-Create a `.env` file in the root directory:
+All configuration is managed through **Vercel Environment Variables**. No local `.env` files are needed.
 
+#### Required Variables
+
+Set these in your Vercel project settings (Project Settings → Environment Variables):
+
+**Database & Analytics:**
 ```env
-VITE_SHOW_FPS=true              # Show FPS counter (development only)
-ADMIN_PASSWORD="your-password"   # Password for admin dashboard (accessed by typing ADMIN)
-VITE_VERSION="1.0.0"            # Application version
+SUPABASE_URL=https://xxx.supabase.co        # Your Supabase project URL
+SUPABASE_ANON_KEY=your_anon_key             # Your Supabase anonymous key
+PUBLIC_SHOULD_TRACK=true                     # Enable/disable analytics tracking
+```
+
+**Admin Access:**
+```env
+ADMIN_PASSWORD=your_secure_password          # Admin dashboard password
+```
+
+**Optional:**
+```env
+VITE_SHOW_FPS=false                          # Show FPS counter (set true for debugging)
+VITE_VERSION=1.0.0                           # Application version
+```
+
+### Supabase Setup
+
+1. **Create a Supabase Project** at [supabase.com](https://supabase.com)
+
+2. **Run this SQL** in your Supabase SQL Editor:
+
+```sql
+CREATE TABLE analytics_events (
+  id BIGSERIAL PRIMARY KEY,
+  event_type TEXT NOT NULL,
+  session_id TEXT,
+  timestamp TIMESTAMPTZ DEFAULT NOW(),
+  button TEXT,
+  language TEXT,
+  duration INTEGER,
+  is_maybe_a_bot BOOLEAN
+);
+
+-- Index for faster time-based queries
+CREATE INDEX idx_analytics_timestamp ON analytics_events(timestamp);
+
+-- Enable Row Level Security
+ALTER TABLE analytics_events ENABLE ROW LEVEL SECURITY;
+
+-- Allow anonymous inserts (for tracking)
+CREATE POLICY "Allow anonymous inserts" ON analytics_events
+  FOR INSERT
+  WITH CHECK (true);
+
+-- Allow authenticated reads (for admin)
+CREATE POLICY "Allow authenticated reads" ON analytics_events
+  FOR SELECT
+  USING (true);
+```
+
+3. **Get your credentials** from Settings → API:
+   - Copy `Project URL` → Set as `SUPABASE_URL`
+   - Copy `anon/public` key → Set as `SUPABASE_ANON_KEY`
+
+4. **Regenerate TypeScript types** (optional, when schema changes):
+```bash
+npx supabase gen types typescript --project-id YOUR_PROJECT_ID --schema public > src/lib/database.types.ts
 ```
 
 ### Scene Settings
@@ -89,7 +151,31 @@ Customize the 3D experience in [src/lib/settings.ts](src/lib/settings.ts):
 
 ## 🚀 Deployment
 
-### Build for Production
+### Deploy to Vercel
+
+1. **Push to GitHub** (or GitLab/Bitbucket)
+```bash
+git add .
+git commit -m "Ready for deployment"
+git push
+```
+
+2. **Import to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Click "Import Project"
+   - Select your repository
+   - Vercel auto-detects SvelteKit
+
+3. **Set Environment Variables**
+   - Go to Project Settings → Environment Variables
+   - Add all required variables (see Configuration section above)
+   - Make sure to set them for **Production** environment
+
+4. **Deploy**
+   - Click "Deploy"
+   - Or use CLI: `vercel --prod`
+
+### Local Production Testing
 
 ```bash
 # Create optimized build
@@ -97,17 +183,15 @@ pnpm build
 
 # Test production build locally
 pnpm preview
-
-# Deploy with Node.js
-node server.js
 ```
 
-### Environment Setup
+### Important Notes
 
-Ensure production environment variables are set:
-- Set `ADMIN_PASSWORD` to a secure value
-- Configure `VITE_VERSION` for version tracking
-- Set `VITE_SHOW_FPS=false` in production
+- All environment variables are managed in Vercel dashboard
+- Set `PUBLIC_SHOULD_TRACK=false` to disable analytics
+- Use a strong `ADMIN_PASSWORD` in production
+- For local development, use `vercel env pull` to download environment variables
+- Database types can be regenerated with `npx supabase gen types`
 
 ## 📈 Performance Tips
 
